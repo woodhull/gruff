@@ -59,7 +59,7 @@ class Gruff::Line < Gruff::Base
       @d.stroke_color @baseline_color
       @d.fill_opacity 0.0
       @d.stroke_dasharray(10, 20)
-      @d.stroke_width 5
+      @d.stroke_width @line_stroke_width.to_i
       @d.line(@graph_left, level, @graph_left + @graph_width, level)
       @d = @d.pop
     end
@@ -79,12 +79,12 @@ class Gruff::Line < Gruff::Base
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
         @d = @d.stroke_opacity 1.0
-        @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+        @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), @line_stroke_width.to_f)
 
         if !@hide_lines and !prev_x.nil? and !prev_y.nil? then          
           @d = @d.line(prev_x, prev_y, new_x, new_y)
         end
-        circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+        circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), @line_stroke_width.to_f)
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y) unless @hide_dots
 
         prev_x = new_x

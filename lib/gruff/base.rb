@@ -117,6 +117,9 @@ module Gruff
     # The font size of the large title at the top of the graph
     attr_accessor :title_font_size
 
+    # The size of the line that the graph is drawn with. 
+    attr_accessor :line_stroke_width
+    
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is 20.
     #
@@ -206,7 +209,8 @@ module Gruff
       @labels_seen = Hash.new
       @sort = true
       @title = nil
-
+      @line_stroke_width = 5.0
+      
       @scale = @columns / @raw_columns
 
       vera_font_path = File.expand_path('Vera.ttf', ENV['MAGICK_FONT_PATH'])
